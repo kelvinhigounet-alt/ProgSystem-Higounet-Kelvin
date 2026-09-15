@@ -51,4 +51,22 @@ public class Image {
             write.close();
         }
     } 
+
+    /**
+     * Sauvegarde l'image au format binaire PPM (P6)
+     */
+    public void write_bin(String filename) throws IOException {
+        try (FileOutputStream out = new FileOutputStream(filename)) {
+            String header = "P6\n" + width + " " + height + "\n255\n";
+            out.write(header.getBytes());
+
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    out.write((byte) pixels[y][x][0]);
+                    out.write((byte) pixels[y][x][1]);
+                    out.write((byte) pixels[y][x][2]);
+                }
+            }
+        }
+    }
 }
