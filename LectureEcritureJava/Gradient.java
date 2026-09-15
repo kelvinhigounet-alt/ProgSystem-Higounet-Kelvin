@@ -8,7 +8,7 @@ public class Gradient {
         for (int y = 0; y < img.getHeight(); y++) {
             for (int x = 0; x < img.getWidth(); x++) {
                 
-                int bleu = (x * 255) / (img.getWidth() - 1);
+                int bleu = x;
                 
                 img.setPixel(x, y, 0, 0, bleu);
             }
