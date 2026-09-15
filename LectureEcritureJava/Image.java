@@ -46,7 +46,9 @@ public class Image {
                                  pixels[y][x][2];
                     )
                 }
+                writer.write("\n");
             }
+            write.close();
         }
     } 
 }
