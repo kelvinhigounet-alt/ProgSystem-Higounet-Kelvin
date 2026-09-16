@@ -41,13 +41,15 @@ public class Image {
 
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
-                    int r = pixels[y][x][0];
-                    int g = pixels[y][x][1];
-                    int b = pixels[y][x][2];
-                    writer.write(r + " " + g + " " + b + " ");
+                    writer.write(pixels[y][x][0],
+                                 pixels[y][x][1],
+                                 pixels[y][x][2];
+                    )
                 }
                 writer.write("\n");
             }
+            write.close();
         }
     } 
 }
+
