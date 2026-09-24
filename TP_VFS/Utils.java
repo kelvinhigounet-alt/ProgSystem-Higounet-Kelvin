@@ -26,13 +26,20 @@ public class Utils {
     }
 
     public static int writeLong(byte[] memory, int offset, long value) {
-    // TODO: Écrire les 8 octets du long en big-endian.
-    return 8;
+        // TODO: Écrire les 8 octets du long en big-endian.
+        for (int i = 7; i >= 0; i--) {
+            memory[offset + (7 - i)] = (byte) ((value >>> (i * 8)) & 0xFF);
+        }
+        return 8;
     }
     
     public static long readLong(byte[] memory, int offset) {
         // TODO: Reconstituer le long.
-        return 0L;
+        long value = 0;
+        for (int i = 0; i < 8; i++) {
+            value = (value << 8) | (memory[offset + i] & 0xFF);
+        }
+        return value;
     }
     
     public static int writeString(
