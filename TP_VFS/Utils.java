@@ -1,3 +1,6 @@
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+
 public class Utils {
 
     public static int writeInt(byte[] memory, int offset, int value) {
@@ -52,7 +55,14 @@ public class Utils {
         // 1. Convertir la chaîne en octets.
         // 2. Copier les octets sans dépasser maxLength.
         // 3. Nettoyer le reste de la zone avec des zéros.
-    
+        byte[] bytes = str.getBytes(StandardCharsets.UTF_8);
+        int lengthToCopy = Math.min(bytes.length, maxLength);
+
+        System.arraycopy(bytes, 0, memory, offset, lengthToCopy);
+
+        if (lengthToCopy < maxLength) {
+            Arrays.fill(memory, offset + lengthToCopy, offset + maxLength, (byte) 0);
+        }
         return maxLength;
     }
     
@@ -64,8 +74,11 @@ public class Utils {
         // TODO:
         // Lire jusqu'au premier octet nul
         // ou jusqu'à maxLength.
-    
-        return "";
+        int length = 0;
+        while (length < maxLength && memory[offset + length] != 0) {
+            length++;
+        }
+        return new String(memory, offset, length, StandardCharsets.UTF_8);
     }
     
     public static short readShort(byte[] memory, int offset) {
