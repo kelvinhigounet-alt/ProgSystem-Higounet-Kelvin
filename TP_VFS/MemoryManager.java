@@ -31,15 +31,17 @@ public class MemoryManager {
 
     private void initializeFilesystem() {
         writeSuperblock();
-
         // TODO:
         // Réserver les blocs système 0 à 128.
+        for (int i = 0; i <= 128; i++) {
+            setBlockUsed(i, true);
+        }
     }
 
     private void writeSuperblock() {
         // TODO:
         // Utiliser Utils pour écrire les métadonnées.
-
+        
         Utils.writeString(
                 memory,
                 SUPERBLOCK_OFFSET,
@@ -69,5 +71,71 @@ public class MemoryManager {
 
     public byte[] getFilesystemMemory() {
         return memory;
+    }
+
+    public boolean setBlockUsed(int blockNumber, boolean used) {
+        if (blockNumber < 0 ||
+                blockNumber >= NUM_BLOCKS) {
+                return false;
+        }
+
+        int byteIndex = blockNumber / 8;
+        int bitPosition = blockNumber % 8;
+        int offset = BITMAP_OFFSET + byteIndex;
+
+        if (used) {
+                // TODO:
+                // Positionner le bit à 1.
+                memory[offset] = (byte) (memory[offset] | (1 << bitPosition));
+        } else {
+                // TODO:
+                // Positionner le bit à 0.
+                memory[offset] = (byte) (memory[offset] & ~(1 << bitPosition));
+        }
+
+        return true;
+        }
+
+        public int isBlockUsed(int blockNumber) {
+
+        if (blockNumber < 0 ||
+                blockNumber >= NUM_BLOCKS) {
+                return -1;
+        }
+
+        // TODO:
+        // Calculer byteIndex.
+        int byteIndex = blockNumber / 8;
+        // Calculer bitPosition.
+        int bitPosition = blockNumber % 8;
+        // Lire le bit.
+        int offset = BITMAP_OFFSET + byteIndex;
+
+        int bit = memory[offset] & (1 << bitPosition);
+
+        if (bit != 0) {
+                return 1;
+        } else {
+                return 0;
+        }
+    }
+
+    public int allocateBlock() {
+
+        // TODO:
+        // Parcourir les blocs de données :
+        // 129 .. NUM_BLOCKS - 1.
+        int startBlock = DATA_OFFSET / BLOCK_SIZE; // DATA_OFFSET / BLOCK_SIZE = 129
+
+        for (int i = startBlock; i < NUM_BLOCKS; i++) {
+            if (isBlockUsed(i) == 0) {
+                // Le marquer immédiatement comme utilisé.
+                setBlockUsed(i, true);
+                // Retourner le premier bloc libre.
+                return i;
+            }
+        }
+        
+        return -1;
     }
 }
