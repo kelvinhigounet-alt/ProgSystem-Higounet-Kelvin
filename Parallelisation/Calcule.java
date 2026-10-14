@@ -3,6 +3,7 @@ public class Calcule extends Thread {
     private final int VALEUR;
     private final int MULTIPLICATEUR;
     private final int INDEX;
+	private long resultat;
 
     public Calcule(int VALEUR, int MULTIPLICATEUR, int INDEX) {
         this.VALEUR = VALEUR;
