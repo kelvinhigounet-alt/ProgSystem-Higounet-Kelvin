@@ -1,4 +1,4 @@
-public class CompteurDangereux {
+public class CompteurSecurite {
     private static int compteurGlobal = 0; // Variable partagée MODIFIABLE
 	
 	private static final Object verrou = new Object();

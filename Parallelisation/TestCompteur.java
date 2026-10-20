@@ -26,7 +26,7 @@ public class TestCompteur {
             Thread[] threads = new Thread[nbThreads];
             for (int t = 0; t < nbThreads; t++) {
                 threads[t] = new Thread(
-                        new CompteurDangereux.Incrementeur("Thread-" + t, nbIncrements));
+                        new CompteurDangereux.Incrementeur("Thread" + t, nbIncrements));
             }
             for (Thread thread : threads) {
                 thread.start();
