@@ -1,6 +1,6 @@
 public class CalculParallele {
 	private static final int[] DONNEES = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-	private static final int MULTIPLICATEUR = 1000;
+	private static final int MULTIPLICATEUR = 1000000000;
 	public static void main(String[] args) {		
 		long debut = System.nanoTime();
 		Calcule[] threads = new Calcule[DONNEES.length];
