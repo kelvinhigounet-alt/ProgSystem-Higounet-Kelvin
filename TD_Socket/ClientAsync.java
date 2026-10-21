@@ -35,5 +35,11 @@ class ReceptionHandler implements Runnable {
     @Override
     public void run() {
             // TODO
+		try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+                String ligne;
+                while ((ligne = in.readLine()) != null) {
+                    System.out.println("Message reçu : " + ligne);
+                }
+            } catch (IOException e) {}
     }
 }
