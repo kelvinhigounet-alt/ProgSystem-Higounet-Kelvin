@@ -26,6 +26,22 @@ class ClientHandler implements Runnable {
 
     @Override
     public void run() {
-         // TODO
+         try (
+            BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            PrintWriter out = new PrintWriter(client.getOutputStream(), true)
+        ) {
+            String line;
+            while ((line = in.readLine()) != null) {
+                System.out.println("[" + Thread.currentThread().getName() + "] Reçu : " + line);
+                out.println("ECHO: " + line);
+            }
+        } catch (IOException e) {
+            System.err.println("Erreur client : " + e.getMessage());
+        } finally {
+            try {
+                System.out.println("[" + Thread.currentThread().getName() + "] Client déconnecté");
+                client.close();
+            } catch (IOException ignored) {}
+        }
     }
 }
